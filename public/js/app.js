@@ -70,7 +70,12 @@ export function mostrarSnackbar(texto) {
 
 // FC-04: crea la solicitud y muestra la hoja con «Abrir firmador». Son dos toques
 // porque Chrome puede bloquear la apertura si no sigue directamente a un gesto del usuario.
+// El Intent URI solo abre la app en Android; fuera de él no se crea la solicitud.
 export async function solicitarFirma(documento) {
+  if (!/Android/i.test(navigator.userAgent)) {
+    mostrarSnackbar('La firma se hace desde Chrome en el teléfono Android.');
+    return;
+  }
   const solicitud = await api(`/documentos/${encodeURIComponent(documento.id)}/solicitudes`, { method: 'POST' });
   localStorage.setItem('solicitud', JSON.stringify({ id: solicitud.id, documentoId: documento.id }));
   const { sha256Documento } = solicitud;

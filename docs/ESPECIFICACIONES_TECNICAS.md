@@ -37,7 +37,7 @@ flowchart LR
 - Barra superior con el título, el usuario, **Actualizar** y un botón para salir.
 - FAB extendido «Subir PDF», que abre el selector de archivos del teléfono filtrado a PDF.
 - Tocar una fila la selecciona (una a la vez) y aparece una barra inferior con **Firmar** y **Ver detalle**.
-- **Firmar** crea la solicitud y abre una hoja inferior con nombre, SHA-256 abreviado y el botón **Abrir firmador**. Son dos toques a propósito: la app se abre con un gesto directo del usuario y no después de una espera de red, que Chrome puede bloquear.
+- Fuera de Android, **Firmar** no crea la solicitud y avisa que la firma se hace desde Chrome en el teléfono. En Android, **Firmar** crea la solicitud y abre una hoja inferior con nombre, SHA-256 abreviado y el botón **Abrir firmador**. Son dos toques a propósito: la app se abre con un gesto directo del usuario y no después de una espera de red, que Chrome puede bloquear.
 - Estado de la fila como _chip_: `Sin firma`, `Firma en curso`, `Firmado (n)`, `Rechazada`.
 - Al detectarse una firma nueva, la fila se resalta unos segundos y aparece un _snackbar_ «Firmado por {titular}». La fila conserva un ícono de sello y el texto «{titular} · {fecha}».
 - En el detalle, cada firma es una tarjeta con titular, emisor, fecha declarada y la nota «Certificado de CA de laboratorio, no reconocido por validadores oficiales». Nunca se muestra «Firma válida».
