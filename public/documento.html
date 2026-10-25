@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
+  <title>Detalle · Gestión documental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script type="module" src="js/documento.js"></script>
+</head>
+<body>
+  <header class="barra-superior">
+    <a class="boton-icono" href="documentos" aria-label="Volver a documentos">
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+    </a>
+    <div class="barra-titulo">
+      <h1>Detalle</h1>
+    </div>
+    <button id="actualizar" class="boton-icono" aria-label="Actualizar">
+      <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+    </button>
+  </header>
+
+  <main class="contenido">
+    <p id="aviso" class="aviso" role="status" hidden></p>
+
+    <div id="contenido" class="detalle" hidden>
+      <section class="detalle-seccion">
+        <h2 id="nombre" class="detalle-nombre"></h2>
+        <span id="estado" class="chip-estado"></span>
+        <dl class="detalle-datos">
+          <dt>Tamaño</dt><dd id="tamano"></dd>
+          <dt>Subido por</dt><dd id="subido-por"></dd>
+          <dt>Subido el</dt><dd id="subido-en"></dd>
+          <dt>SHA-256</dt><dd><code id="sha256"></code></dd>
+        </dl>
+        <div class="detalle-acciones">
+          <button id="firmar" class="boton-lleno">Firmar</button>
+          <a id="descargar" class="boton-texto" href="#" download>
+            <span class="material-symbols-outlined" aria-hidden="true">download</span>
+            Descargar
+          </a>
+        </div>
+      </section>
+
+      <section class="detalle-seccion">
+        <h2>Firmas aplicadas</h2>
+        <p id="sin-firmas" class="aviso">El documento aún no tiene firmas.</p>
+        <ul id="firmas" class="tarjetas"></ul>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="hoja" class="hoja-inferior">
+    <h2>Firmar documento</h2>
+    <p id="hoja-nombre" class="hoja-nombre"></p>
+    <p class="hoja-dato">SHA-256: <code id="hoja-sha256"></code></p>
+    <a id="abrir-firmador" class="boton-lleno" href="#">Abrir firmador</a>
+    <button id="cancelar" class="boton-texto">Cancelar</button>
+  </dialog>
+
+  <p id="snackbar" class="snackbar" role="status" hidden></p>
+
+  <template id="tarjeta-firma">
+    <li class="tarjeta">
+      <p class="firma-titular"></p>
+      <dl class="detalle-datos">
+        <dt>Emisor</dt><dd class="firma-emisor"></dd>
+        <dt>Fecha declarada por el firmante</dt><dd class="firma-fecha"></dd>
+      </dl>
+      <p class="firma-nota">Certificado de CA de laboratorio, no reconocido por validadores oficiales.</p>
+    </li>
+  </template>
+</body>
+</html>

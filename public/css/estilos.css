@@ -284,3 +284,37 @@ h1, h2, p { margin: 0; }
   background: var(--color-sobre-superficie);
   box-shadow: var(--elevacion-3);
 }
+
+/* Detalle (FC-07, FC-08) */
+.boton-texto .material-symbols-outlined { margin-right: calc(var(--espacio) / 2); }
+a.boton-icono { color: var(--color-sobre-superficie-variante); text-decoration: none; }
+
+.detalle { display: grid; gap: calc(var(--espacio) * 1.5); }
+.detalle-seccion { display: grid; gap: var(--espacio); justify-items: start; }
+.detalle-seccion h2 { font: var(--texto-titulo); }
+.detalle-nombre { overflow-wrap: anywhere; }
+
+.detalle-datos {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: calc(var(--espacio) / 4) var(--espacio);
+  margin: 0;
+  font: var(--texto-cuerpo-pequeno);
+}
+.detalle-datos dt { color: var(--color-sobre-superficie-variante); }
+.detalle-datos dd { margin: 0; overflow-wrap: anywhere; }
+
+.detalle-acciones { display: flex; flex-wrap: wrap; gap: calc(var(--espacio) / 2); }
+
+.tarjetas { display: grid; gap: calc(var(--espacio) / 2); width: 100%; margin: 0; padding: 0; list-style: none; }
+.tarjeta {
+  display: grid;
+  gap: calc(var(--espacio) / 2);
+  padding: var(--espacio);
+  border: 1px solid var(--color-contorno-variante);
+  border-radius: var(--forma-mediana);
+}
+.firma-titular { font: var(--texto-etiqueta); }
+.tarjeta .detalle-datos { grid-template-columns: 1fr; }
+.tarjeta .detalle-datos dd { margin-bottom: calc(var(--espacio) / 2); }
+.firma-nota { font: var(--texto-cuerpo-pequeno); color: var(--color-sobre-superficie-variante); }

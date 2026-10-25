@@ -1,11 +1,7 @@
-import { requerirSesion, cerrarSesion, api, formatearTamano, formatearFecha } from './app.js';
-
-const ESTADOS = {
-  SIN_FIRMA: 'Sin firma',
-  EN_CURSO: 'Firma en curso',
-  FIRMADO: 'Firmado',
-  RECHAZADA: 'Rechazada',
-};
+import {
+  requerirSesion, cerrarSesion, api, mostrarEstado, formatearTamano, formatearFecha,
+  mostrarSnackbar, solicitarFirma, verificarSolicitud,
+} from './app.js';
 
 const lista = document.querySelector('#lista');
 const aviso = document.querySelector('#aviso');
@@ -15,7 +11,6 @@ const botonSubir = document.querySelector('#subir');
 const acciones = document.querySelector('#acciones');
 const botonFirmar = document.querySelector('#firmar');
 const hoja = document.querySelector('#hoja');
-const snackbar = document.querySelector('#snackbar');
 
 let documentos = [];
 let seleccionado = null;
@@ -29,12 +24,6 @@ function mostrarAviso(texto) {
   aviso.hidden = !texto;
 }
 
-function mostrarSnackbar(texto) {
-  snackbar.textContent = texto;
-  snackbar.hidden = false;
-  setTimeout(() => { snackbar.hidden = true; }, 4000);
-}
-
 function crearFila(documento) {
   const fila = plantilla.content.cloneNode(true);
   const boton = fila.querySelector('.fila');
@@ -44,12 +33,7 @@ function crearFila(documento) {
   fila.querySelector('.fila-nombre').textContent = documento.nombre;
   fila.querySelector('.fila-datos').textContent =
     `${formatearTamano(documento.tamano)} · ${formatearFecha(documento.subidoEn)} · ${documento.subidoPor}`;
-
-  const chip = fila.querySelector('.chip-estado');
-  chip.dataset.estado = documento.estado;
-  chip.textContent = documento.estado === 'FIRMADO'
-    ? `${ESTADOS.FIRMADO} (${documento.cantidadFirmas})`
-    : ESTADOS[documento.estado];
+  mostrarEstado(fila.querySelector('.chip-estado'), documento.estado, documento.cantidadFirmas);
 
   // Titular y fecha vienen del PDF firmado, informados por el servicio (FC-06).
   if (documento.ultimaFirma) {
@@ -113,18 +97,10 @@ function seleccionar(documento) {
   }
 }
 
-// Crear la solicitud y abrir la app son dos toques: Chrome puede bloquear
-// la apertura si no sigue directamente a un gesto del usuario.
 botonFirmar.addEventListener('click', async () => {
   botonFirmar.disabled = true;
   try {
-    const solicitud = await api(`/documentos/${encodeURIComponent(seleccionado.id)}/solicitudes`, { method: 'POST' });
-    localStorage.setItem('solicitud', JSON.stringify({ id: solicitud.id, documentoId: seleccionado.id }));
-    document.querySelector('#hoja-nombre').textContent = seleccionado.nombre;
-    document.querySelector('#hoja-sha256').textContent =
-      `${solicitud.sha256Documento.slice(0, 8)}…${solicitud.sha256Documento.slice(-8)}`;
-    document.querySelector('#abrir-firmador').href = solicitud.enlaceAplicacion;
-    hoja.showModal();
+    await solicitarFirma(seleccionado);
   } catch {
     mostrarSnackbar('No se pudo crear la solicitud de firma.');
   } finally {
@@ -137,18 +113,7 @@ document.querySelector('#cancelar').addEventListener('click', () => {
   cargar();
 });
 
-// FC-05 y FC-06: al volver de la app se consulta el estado; nunca se asume el resultado.
-async function verificarSolicitud() {
-  const pendiente = JSON.parse(localStorage.getItem('solicitud'));
-  if (!pendiente) return null;
-  const solicitud = await api(`/solicitudes/${encodeURIComponent(pendiente.id)}`);
-  if (solicitud.estado === 'FIRMADA' || solicitud.estado === 'RECHAZADA') {
-    localStorage.removeItem('solicitud');
-    return { documentoId: pendiente.documentoId, estado: solicitud.estado };
-  }
-  return null;
-}
-
+// FC-06
 function avisarResultado({ documentoId, estado }) {
   const documento = documentos.find((d) => d.id === documentoId);
   if (estado === 'RECHAZADA') {
