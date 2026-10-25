@@ -1,8 +1,8 @@
 # 🌐 Firmador cliente
 
-Web _mobile-first_ (Next.js + TypeScript) que simula un **sistema documental de ejemplo**: el usuario sube un PDF, abre el firmador del teléfono y descarga el documento firmado.
+Web _mobile-first_ en HTML, CSS y JavaScript, sin framework ni dependencias, que simula un **sistema de gestión documental interno**: el usuario ingresa, sube un PDF, pide su firma al teléfono y consulta las firmas aplicadas.
 
-> ⚠️ **Prueba de concepto, prioridad P2.** El navegador **no** accede a la clave ni firma. Toda la criptografía ocurre en `firmador-movil`.
+> ⚠️ **Prueba de concepto, prioridad P2.** La web **no** firma, no maneja claves ni emite certificados: la firma ocurre en `firmador-movil` y la identidad del firmante la da el certificado del teléfono, no la sesión web. Solo se implementan los casos ideales; un fallo muestra un mensaje genérico.
 
 ## 🔄 Flujo en un mismo teléfono
 
@@ -12,28 +12,40 @@ sequenceDiagram
     participant W as Web
     participant S as Servicio
     participant M as App móvil
-    U->>W: Seleccionar PDF
+    U->>W: Ingresar (usuario de demostración)
+    U->>W: Subir PDF
+    W->>S: Guardar documento
+    U->>W: Seleccionar documento y tocar "Firmar"
     W->>S: Crear solicitud
-    S-->>W: ID + enlace
+    S-->>W: ID de la solicitud
     U->>W: Tocar "Abrir firmador"
-    W->>M: App Link /firmar/{id}
-    M->>S: Tomar solicitud y descargar PDF
+    W->>M: Enlace firmadormovil://firmar/{id}
+    M->>S: Iniciar solicitud y descargar PDF
     M->>M: Confirmar, autenticar y firmar
-    M->>S: Subir PDF firmado
-    U->>W: Volver al navegador
+    M->>S: Entregar PDF firmado
+    M-->>W: La app se cierra y Android vuelve a Chrome
     W->>S: Consultar estado
-    W-->>U: Descargar PDF firmado
+    W-->>U: Firmado por {titular} · {fecha}
 ```
 
-## ✅ Funciones
+El enlace solo abre la app y no devuelve nada a la web: el resultado se obtiene consultando a `firmador-servicio` al volver, nunca se asume. El botón **Actualizar** repite la consulta.
 
-- Subir un PDF y mostrar nombre, tamaño y SHA-256.
-- Crear la solicitud y mostrar el botón **Abrir firmador móvil**.
-- Recuperar el estado al volver al navegador, sin duplicar la solicitud.
-- Descargar el resultado o explicar el rechazo, la expiración o la falta de la app.
+## ✅ Funciones (P2)
+
+- Ingreso simulado con usuarios fijos, rotulado como entorno de demostración (FC-01).
+- Lista de documentos con nombre, tamaño, fecha, quién lo subió, estado (`Sin firma`, `Firma en curso`, `Firmado (n)`, `Rechazada`) y último firmante (FC-02).
+- Carga de PDF desde el selector de archivos del teléfono (FC-03).
+- **Firmar** crea la solicitud y **Abrir firmador** abre la app con un toque del usuario, sin apertura automática (FC-04).
+- Detección del resultado al volver al navegador y marca del documento con titular y fecha (FC-05, FC-06).
+- Detalle con metadatos, SHA-256 y una tarjeta por firma: titular, emisor y fecha declarada por el firmante (PAdES B-B, sin sello de tiempo) (FC-07).
+- Descarga de la versión actual del documento (FC-08).
+
+Titular, emisor y fecha salen de lo que `firmador-servicio` extrae del PDF firmado. El certificado es de una CA de laboratorio, no reconocida por validadores oficiales, y la web nunca muestra «Firma válida».
+
+Los eventos de la solicitud (FC-09) y las validaciones con mensajes específicos (FC-10) son P3: solo si P2 queda cerrado y hay tiempo.
 
 ## 🎯 Aporte a la monografía
 
-Junto con `firmador-servicio`, permite evaluar **RF07**: la firma solicitada desde un sistema documental, el escenario de AGETIC como entidad usuaria. No es necesaria para evaluar el núcleo (firma local en el teléfono).
+Junto con `firmador-servicio`, aporta evidencia descriptiva al requisito **RF07** y al criterio **V5**: la firma solicitada desde un sistema documental, el escenario de AGETIC como entidad usuaria. No es necesaria para evaluar el núcleo (firma local en el teléfono) ni permite afirmar facilidad de uso o ahorro de tiempo, porque no hay pruebas con usuarios.
 
-📄 Detalle: [Especificaciones técnicas](docs/ESPECIFICACIONES_TECNICAS.md)
+📄 Detalle: [Especificaciones técnicas](docs/ESPECIFICACIONES_TECNICAS.md) · 🛠️ Instalación: [INSTALL.md](INSTALL.md)
