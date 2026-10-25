@@ -4,17 +4,36 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>Gestión documental · Demostración</title>
+  <title>Ingreso · Gestión documental</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
   <link rel="stylesheet" href="css/estilos.css">
   <script type="module" src="js/index.js"></script>
 </head>
 <body>
-  <main class="contenido">
-    <h1>Hola mundo</h1>
-    <p>API: <code id="api-url"></code></p>
+  <main class="ingreso">
+    <h1>Gestión documental</h1>
+    <p class="chip">
+      <span class="material-symbols-outlined" aria-hidden="true">info</span>
+      Entorno de demostración
+    </p>
+
+    <form id="ingreso" class="formulario">
+      <label class="campo">
+        <span>Usuario</span>
+        <input name="usuario" autocomplete="username" autocapitalize="none" required>
+      </label>
+      <label class="campo">
+        <span>Contraseña</span>
+        <input name="clave" type="password" autocomplete="current-password" required>
+      </label>
+      <p id="mensaje" class="mensaje-error" role="alert" hidden>Usuario o contraseña incorrectos.</p>
+      <button class="boton-lleno">Ingresar</button>
+    </form>
+
+    <p class="ayuda">Usuarios: operador, revisor · contraseña: demo</p>
   </main>
 </body>
 </html>
