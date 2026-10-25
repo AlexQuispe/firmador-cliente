@@ -1,0 +1,53 @@
+/* Tokens Material 3: color, tipografía, forma y elevación. */
+:root {
+  --color-primario: #4459a9;
+  --color-sobre-primario: #ffffff;
+  --color-superficie: #fbf8ff;
+  --color-sobre-superficie: #1a1b21;
+  --color-superficie-contenedor: #efedf4;
+  --color-contorno: #757680;
+  --color-error: #ba1a1a;
+
+  --fuente: 'Roboto', system-ui, sans-serif;
+  --texto-titulo: 500 1.375rem/1.75rem var(--fuente);
+  --texto-cuerpo: 400 1rem/1.5rem var(--fuente);
+  --texto-etiqueta: 500 0.875rem/1.25rem var(--fuente);
+
+  --forma-pequena: 8px;
+  --forma-mediana: 12px;
+  --forma-grande: 16px;
+  --forma-completa: 9999px;
+
+  --elevacion-1: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --elevacion-3: 0 1px 3px rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
+
+  --espacio: 16px;
+  --objetivo-tactil: 48px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primario: #b6c4ff;
+    --color-sobre-primario: #102a78;
+    --color-superficie: #121318;
+    --color-sobre-superficie: #e3e1e9;
+    --color-superficie-contenedor: #1e1f25;
+    --color-contorno: #8f909a;
+    --color-error: #ffb4ab;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: var(--texto-cuerpo);
+  color: var(--color-sobre-superficie);
+  background: var(--color-superficie);
+}
+
+h1 { margin: 0; font: var(--texto-titulo); }
+
+:focus-visible { outline: 2px solid var(--color-primario); outline-offset: 2px; }
+
+.contenido { padding: var(--espacio); }
