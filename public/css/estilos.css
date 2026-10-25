@@ -318,3 +318,7 @@ a.boton-icono { color: var(--color-sobre-superficie-variante); text-decoration: 
 .tarjeta .detalle-datos { grid-template-columns: 1fr; }
 .tarjeta .detalle-datos dd { margin-bottom: calc(var(--espacio) / 2); }
 .firma-nota { font: var(--texto-cuerpo-pequeno); color: var(--color-sobre-superficie-variante); }
+
+/* Eventos de la solicitud (FC-09) */
+.detalle-seccion[hidden] { display: none; }
+.eventos { display: grid; gap: calc(var(--espacio) / 4); margin: 0; padding-left: calc(var(--espacio) * 1.25); font: var(--texto-cuerpo-pequeno); }

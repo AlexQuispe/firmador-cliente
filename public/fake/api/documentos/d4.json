@@ -1,0 +1,11 @@
+{
+  "id": "d4",
+  "nombre": "nota-interna.pdf",
+  "tamano": 12030,
+  "sha256": "5e1a9c3f7b2d6e0a4c8f1b5d9e3a7c2f6b0d4e8a1c5f9b3d7e2a6c0f4b8d1e5a",
+  "subidoPor": "operador",
+  "subidoEn": "2026-10-25T14:20:00Z",
+  "estado": "SIN_FIRMA",
+  "firmas": [],
+  "solicitudActual": null
+}

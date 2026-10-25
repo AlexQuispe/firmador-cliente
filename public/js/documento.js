@@ -3,6 +3,13 @@ import {
   mostrarSnackbar, solicitarFirma, verificarSolicitud,
 } from './app.js';
 
+const EVENTOS = {
+  PENDIENTE: 'Solicitud creada',
+  EN_PROCESO: 'Iniciada en el teléfono',
+  FIRMADA: 'Firmada',
+  RECHAZADA: 'Rechazada en el teléfono',
+};
+
 const id = new URLSearchParams(location.search).get('id');
 const contenido = document.querySelector('#contenido');
 const aviso = document.querySelector('#aviso');
@@ -30,6 +37,13 @@ function crearTarjeta(firma) {
   return tarjeta;
 }
 
+// FC-09: hora con segundos, útil para registrar los casos de prueba.
+function crearEvento({ estado, hora }) {
+  const evento = document.createElement('li');
+  evento.textContent = `${new Date(hora).toLocaleString('es-BO', { dateStyle: 'short', timeStyle: 'medium' })} · ${EVENTOS[estado]}`;
+  return evento;
+}
+
 async function cargar() {
   contenido.hidden = true;
   mostrarAviso('Cargando documento…');
@@ -49,6 +63,12 @@ async function cargar() {
   document.querySelector('#descargar').href = urlApi(`/documentos/${encodeURIComponent(id)}/archivo`);
   firmas.replaceChildren(...documento.firmas.map(crearTarjeta));
   document.querySelector('#sin-firmas').hidden = documento.firmas.length > 0;
+  const { solicitudActual } = documento;
+  document.querySelector('#solicitud').hidden = !solicitudActual;
+  if (solicitudActual) {
+    document.querySelector('#solicitado-por').textContent = solicitudActual.solicitadoPor;
+    document.querySelector('#eventos').replaceChildren(...solicitudActual.eventos.map(crearEvento));
+  }
   mostrarAviso('');
   contenido.hidden = false;
 }

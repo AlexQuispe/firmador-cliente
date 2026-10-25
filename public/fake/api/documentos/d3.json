@@ -1,0 +1,20 @@
+{
+  "id": "d3",
+  "nombre": "acta-reunion-octubre.pdf",
+  "tamano": 96400,
+  "sha256": "1b7d3f9a5c2e8b4d0f6a1c7e3b9d5f2a8c4e0b6d2f8a3c9e5b1d7f4a0c6e2b8d",
+  "subidoPor": "operador",
+  "subidoEn": "2026-10-25T14:15:00Z",
+  "estado": "RECHAZADA",
+  "firmas": [],
+  "solicitudActual": {
+    "id": "s3",
+    "estado": "RECHAZADA",
+    "solicitadoPor": "operador",
+    "eventos": [
+      { "estado": "PENDIENTE", "hora": "2026-10-25T14:16:00Z" },
+      { "estado": "EN_PROCESO", "hora": "2026-10-25T14:16:30Z" },
+      { "estado": "RECHAZADA", "hora": "2026-10-25T14:16:55Z" }
+    ]
+  }
+}
