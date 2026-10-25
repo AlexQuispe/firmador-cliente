@@ -8,6 +8,13 @@
   --color-superficie-contenedor: #efedf4;
   --color-contorno: #757680;
   --color-error: #ba1a1a;
+  --color-primario-contenedor: #dce1ff;
+  --color-sobre-primario-contenedor: #2b4190;
+  --color-secundario-contenedor: #dfe1f9;
+  --color-sobre-secundario-contenedor: #424659;
+  --color-error-contenedor: #ffdad6;
+  --color-sobre-error-contenedor: #93000a;
+  --color-contorno-variante: #c5c6d0;
 
   --fuente: 'Roboto', system-ui, sans-serif;
   --texto-titular: 400 1.5rem/2rem var(--fuente);
@@ -19,9 +26,11 @@
   --forma-extra-pequena: 4px;
   --forma-pequena: 8px;
   --forma-mediana: 12px;
+  --forma-grande: 16px;
   --forma-completa: 9999px;
 
   --elevacion-1: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --elevacion-3: 0 1px 3px rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
 
   --espacio: 16px;
   --objetivo-tactil: 48px;
@@ -37,6 +46,13 @@
     --color-superficie-contenedor: #1e1f25;
     --color-contorno: #8f909a;
     --color-error: #ffb4ab;
+    --color-primario-contenedor: #2b4190;
+    --color-sobre-primario-contenedor: #dce1ff;
+    --color-secundario-contenedor: #424659;
+    --color-sobre-secundario-contenedor: #dfe1f9;
+    --color-error-contenedor: #93000a;
+    --color-sobre-error-contenedor: #ffdad6;
+    --color-contorno-variante: #45464f;
   }
 }
 
@@ -49,7 +65,7 @@ body {
   background: var(--color-superficie);
 }
 
-h1, p { margin: 0; }
+h1, h2, p { margin: 0; }
 
 :focus-visible { outline: 2px solid var(--color-primario); outline-offset: 2px; }
 
@@ -67,8 +83,9 @@ h1, p { margin: 0; }
   padding: 0 calc(var(--espacio) / 4) 0 var(--espacio);
   background: var(--color-superficie-contenedor);
 }
-.barra-superior h1 { flex: 1; font: var(--texto-titulo); }
-.barra-usuario { font: var(--texto-etiqueta); color: var(--color-sobre-superficie-variante); }
+.barra-titulo { flex: 1; display: grid; min-width: 0; }
+.barra-superior h1 { font: var(--texto-titulo); }
+.barra-usuario { font: var(--texto-cuerpo-pequeno); color: var(--color-sobre-superficie-variante); }
 
 /* Botones */
 .boton-lleno {
@@ -137,3 +154,133 @@ h1, p { margin: 0; }
 .ingreso h1 { font: var(--texto-titular); }
 .ingreso .formulario { width: 100%; }
 .ayuda { font: var(--texto-cuerpo-pequeno); color: var(--color-sobre-superficie-variante); }
+
+/* Documentos (FC-02, FC-03) */
+.contenido-con-fab { padding-bottom: calc(var(--espacio) * 6); }
+
+.aviso { padding: var(--espacio); color: var(--color-sobre-superficie-variante); }
+
+.lista { margin: 0; padding: 0; list-style: none; }
+
+.fila {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--espacio);
+  width: 100%;
+  padding: calc(var(--espacio) * 0.75) var(--espacio);
+  border: 0;
+  border-bottom: 1px solid var(--color-contorno-variante);
+  font: inherit;
+  text-align: start;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+.fila[aria-pressed="true"] { background: var(--color-secundario-contenedor); }
+.fila.resaltada { background: var(--color-primario-contenedor); }
+.fila-icono { color: var(--color-sobre-superficie-variante); }
+.fila-texto { display: grid; gap: calc(var(--espacio) / 4); justify-items: start; min-width: 0; }
+.fila-nombre { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fila-datos, .fila-firma { font: var(--texto-cuerpo-pequeno); color: var(--color-sobre-superficie-variante); }
+.fila-firma { display: flex; align-items: center; gap: calc(var(--espacio) / 4); }
+.fila-firma .material-symbols-outlined { font-size: 1.125rem; color: var(--color-primario); }
+
+.chip-estado {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 calc(var(--espacio) / 2);
+  border: 1px solid var(--color-contorno);
+  border-radius: var(--forma-pequena);
+  font: var(--texto-etiqueta);
+}
+.chip-estado[data-estado="EN_CURSO"] {
+  border-color: transparent;
+  color: var(--color-sobre-secundario-contenedor);
+  background: var(--color-secundario-contenedor);
+}
+.chip-estado[data-estado="FIRMADO"] {
+  border-color: transparent;
+  color: var(--color-sobre-primario-contenedor);
+  background: var(--color-primario-contenedor);
+}
+.chip-estado[data-estado="RECHAZADA"] {
+  border-color: transparent;
+  color: var(--color-sobre-error-contenedor);
+  background: var(--color-error-contenedor);
+}
+
+.fab {
+  position: fixed;
+  right: var(--espacio);
+  bottom: var(--espacio);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--espacio) * 0.75);
+  min-height: 56px;
+  padding: 0 calc(var(--espacio) * 1.25) 0 var(--espacio);
+  border: 0;
+  border-radius: var(--forma-grande);
+  font: var(--texto-etiqueta);
+  color: var(--color-sobre-primario-contenedor);
+  background: var(--color-primario-contenedor);
+  box-shadow: var(--elevacion-3);
+  cursor: pointer;
+}
+.fab:disabled { opacity: 0.6; cursor: progress; }
+
+/* Firma (FC-04 a FC-06) */
+.boton-lleno { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+
+.boton-texto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--objetivo-tactil);
+  padding: 0 var(--espacio);
+  border: 0;
+  border-radius: var(--forma-completa);
+  font: var(--texto-etiqueta);
+  color: var(--color-primario);
+  background: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.barra-inferior {
+  position: fixed;
+  inset: auto 0 0 0;
+  display: flex;
+  gap: calc(var(--espacio) / 2);
+  padding: calc(var(--espacio) / 2) var(--espacio);
+  background: var(--color-superficie-contenedor);
+  box-shadow: var(--elevacion-1);
+}
+.barra-inferior[hidden] { display: none; }
+.con-acciones .fab { bottom: calc(var(--objetivo-tactil) + var(--espacio) * 2); }
+
+.hoja-inferior {
+  inset: auto 0 0 0;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: calc(var(--espacio) * 1.5) var(--espacio);
+  border: 0;
+  border-radius: var(--forma-grande) var(--forma-grande) 0 0;
+  color: inherit;
+  background: var(--color-superficie-contenedor);
+}
+.hoja-inferior[open] { display: grid; gap: var(--espacio); }
+.hoja-inferior h2 { font: var(--texto-titulo); }
+.hoja-nombre { overflow-wrap: anywhere; }
+.hoja-dato { font: var(--texto-cuerpo-pequeno); color: var(--color-sobre-superficie-variante); }
+
+.snackbar {
+  position: fixed;
+  inset: auto var(--espacio) calc(var(--espacio) * 6) var(--espacio);
+  padding: var(--espacio);
+  border-radius: var(--forma-extra-pequena);
+  color: var(--color-superficie);
+  background: var(--color-sobre-superficie);
+  box-shadow: var(--elevacion-3);
+}

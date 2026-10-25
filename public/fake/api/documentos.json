@@ -1,0 +1,42 @@
+[
+  {
+    "id": "d1",
+    "nombre": "informe-anual-2026.pdf",
+    "tamano": 182345,
+    "subidoPor": "operador",
+    "subidoEn": "2026-10-25T14:02:00Z",
+    "estado": "FIRMADO",
+    "cantidadFirmas": 1,
+    "ultimaFirma": { "titular": "USUARIO DE PRUEBA", "fechaDeclarada": "2026-10-25T14:05:00Z" }
+  },
+  {
+    "id": "d2",
+    "nombre": "memorandum-14.pdf",
+    "tamano": 48210,
+    "subidoPor": "revisor",
+    "subidoEn": "2026-10-25T14:10:00Z",
+    "estado": "EN_CURSO",
+    "cantidadFirmas": 0,
+    "ultimaFirma": null
+  },
+  {
+    "id": "d3",
+    "nombre": "acta-reunion-octubre.pdf",
+    "tamano": 96400,
+    "subidoPor": "operador",
+    "subidoEn": "2026-10-25T14:15:00Z",
+    "estado": "RECHAZADA",
+    "cantidadFirmas": 0,
+    "ultimaFirma": null
+  },
+  {
+    "id": "d4",
+    "nombre": "nota-interna.pdf",
+    "tamano": 12030,
+    "subidoPor": "operador",
+    "subidoEn": "2026-10-25T14:20:00Z",
+    "estado": "SIN_FIRMA",
+    "cantidadFirmas": 0,
+    "ultimaFirma": null
+  }
+]

@@ -14,12 +14,59 @@
 </head>
 <body>
   <header class="barra-superior">
-    <h1>Gestión documental</h1>
-    <span id="usuario" class="barra-usuario"></span>
+    <div class="barra-titulo">
+      <h1>Gestión documental</h1>
+      <span id="usuario" class="barra-usuario"></span>
+    </div>
+    <button id="actualizar" class="boton-icono" aria-label="Actualizar">
+      <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+    </button>
     <button id="salir" class="boton-icono" aria-label="Salir">
       <span class="material-symbols-outlined" aria-hidden="true">logout</span>
     </button>
   </header>
-  <main class="contenido"></main>
+
+  <main class="contenido-con-fab">
+    <p id="aviso" class="aviso" role="status" hidden></p>
+    <ul id="lista" class="lista"></ul>
+  </main>
+
+  <input id="selector" type="file" accept="application/pdf" hidden>
+  <button id="subir" class="fab">
+    <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
+    Subir PDF
+  </button>
+
+  <nav id="acciones" class="barra-inferior" hidden>
+    <button id="firmar" class="boton-lleno">Firmar</button>
+    <a id="ver-detalle" class="boton-texto" href="#">Ver detalle</a>
+  </nav>
+
+  <dialog id="hoja" class="hoja-inferior">
+    <h2>Firmar documento</h2>
+    <p id="hoja-nombre" class="hoja-nombre"></p>
+    <p class="hoja-dato">SHA-256: <code id="hoja-sha256"></code></p>
+    <a id="abrir-firmador" class="boton-lleno" href="#">Abrir firmador</a>
+    <button id="cancelar" class="boton-texto">Cancelar</button>
+  </dialog>
+
+  <p id="snackbar" class="snackbar" role="status" hidden></p>
+
+  <template id="fila">
+    <li>
+      <button class="fila" aria-pressed="false">
+        <span class="material-symbols-outlined fila-icono" aria-hidden="true">picture_as_pdf</span>
+        <span class="fila-texto">
+          <span class="fila-nombre"></span>
+          <span class="fila-datos"></span>
+          <span class="chip-estado"></span>
+          <span class="fila-firma">
+            <span class="material-symbols-outlined" aria-hidden="true">approval</span>
+            <span class="fila-firmante"></span>
+          </span>
+        </span>
+      </button>
+    </li>
+  </template>
 </body>
 </html>
