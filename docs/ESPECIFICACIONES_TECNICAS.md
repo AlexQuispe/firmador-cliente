@@ -15,7 +15,7 @@ No firma, no maneja claves y no emite certificados. La identidad del firmante la
 ```mermaid
 flowchart LR
     C[firmador-cliente<br/>frontend] -- API REST --> S[firmador-servicio<br/>backend]
-    C -- enlace firmadormovil://firmar/id --> M[firmador-movil]
+    C -- Intent URI firmar/id --> M[firmador-movil]
     M -- inicia, descarga y entrega por ID --> S
 ```
 

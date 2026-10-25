@@ -19,7 +19,7 @@ sequenceDiagram
     W->>S: Crear solicitud
     S-->>W: ID de la solicitud
     U->>W: Tocar "Abrir firmador"
-    W->>M: Enlace firmadormovil://firmar/{id}
+    W->>M: Intent URI firmar/{id} al paquete de firmador-movil
     M->>S: Iniciar solicitud y descargar PDF
     M->>M: Confirmar, autenticar y firmar
     M->>S: Entregar PDF firmado
