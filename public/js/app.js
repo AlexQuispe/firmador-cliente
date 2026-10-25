@@ -35,7 +35,7 @@ export async function api(ruta, opciones = {}) {
     ...opciones,
     headers: { 'X-Usuario': usuarioActual(), ...opciones.headers },
   });
-  if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
+  if (!respuesta.ok) throw Object.assign(new Error(`HTTP ${respuesta.status}`), { status: respuesta.status });
   return respuesta.json();
 }
 
@@ -85,7 +85,17 @@ export async function solicitarFirma(documento) {
 export async function verificarSolicitud() {
   const pendiente = JSON.parse(localStorage.getItem('solicitud'));
   if (!pendiente) return null;
-  const solicitud = await api(`/solicitudes/${encodeURIComponent(pendiente.id)}`);
+  let solicitud;
+  try {
+    solicitud = await api(`/solicitudes/${encodeURIComponent(pendiente.id)}`);
+  } catch (error) {
+    // La solicitud ya no existe en el servicio: se descarta sin aviso.
+    if (error.status === 404) {
+      localStorage.removeItem('solicitud');
+      return null;
+    }
+    throw error;
+  }
   if (solicitud.estado !== 'FIRMADA' && solicitud.estado !== 'RECHAZADA') return null;
   localStorage.removeItem('solicitud');
   return { documentoId: pendiente.documentoId, estado: solicitud.estado };

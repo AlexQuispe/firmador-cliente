@@ -8,7 +8,7 @@ Web _mobile-first_ que simula un **sistema de gestión documental interno** con 
 
 No firma, no maneja claves y no emite certificados. La identidad del firmante la da el certificado del teléfono, no la sesión web.
 
-**Simplificación declarada:** se implementan solo los casos ideales. Sin validaciones de entrada ni manejo detallado de errores; un fallo se muestra con un mensaje genérico. Las validaciones quedan como mejora si sobra tiempo.
+**Simplificación declarada:** se implementan solo los casos ideales. Sin validaciones de entrada ni manejo detallado de errores; un fallo se muestra con un mensaje genérico. Única excepción: si el servicio responde `404` a la consulta de la solicitud guardada, la web la descarta sin aviso. Las validaciones quedan como mejora si sobra tiempo.
 
 ## 2. Arquitectura
 
