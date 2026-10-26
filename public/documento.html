@@ -25,23 +25,31 @@
       <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
     </button>
   </header>
+  <p class="franja">
+    <span class="material-symbols-outlined" aria-hidden="true">science</span>
+    Entorno de demostración · certificados de laboratorio
+  </p>
 
   <main class="contenido">
     <p id="aviso" class="aviso" role="status" hidden></p>
 
     <div id="contenido" class="detalle" hidden>
-      <section class="detalle-seccion">
-        <h2 id="nombre" class="detalle-nombre"></h2>
-        <span id="estado" class="chip-estado"></span>
-        <dl class="detalle-datos">
-          <dt>Tamaño</dt><dd id="tamano"></dd>
-          <dt>Subido por</dt><dd id="subido-por"></dd>
-          <dt>Subido el</dt><dd id="subido-en"></dd>
-          <dt>SHA-256</dt><dd><code id="sha256"></code></dd>
-        </dl>
+      <section class="detalle-encabezado">
+        <div class="detalle-titulo">
+          <span class="icono-contenedor icono-grande icono-tonal" aria-hidden="true">
+            <span class="material-symbols-outlined">picture_as_pdf</span>
+          </span>
+          <div class="detalle-titulo-texto">
+            <h2 id="nombre" class="detalle-nombre"></h2>
+            <span id="estado" class="chip-estado"></span>
+          </div>
+        </div>
         <div class="detalle-acciones">
-          <button id="firmar" class="boton-lleno">Firmar</button>
-          <a id="descargar" class="boton-texto" href="#" download>
+          <button id="firmar" class="boton-lleno">
+            <span class="material-symbols-outlined" aria-hidden="true">signature</span>
+            Firmar
+          </button>
+          <a id="descargar" class="boton-tonal" href="#" download>
             <span class="material-symbols-outlined" aria-hidden="true">download</span>
             Descargar
           </a>
@@ -49,24 +57,55 @@
       </section>
 
       <section class="detalle-seccion">
-        <h2>Firmas aplicadas</h2>
-        <p id="sin-firmas" class="aviso">El documento aún no tiene firmas.</p>
+        <h3>Documento</h3>
+        <dl class="tarjeta detalle-datos">
+          <dt>Tamaño</dt><dd id="tamano"></dd>
+          <dt>Subido por</dt><dd id="subido-por"></dd>
+          <dt>Subido el</dt><dd id="subido-en"></dd>
+          <dt>SHA-256</dt><dd><code id="sha256"></code></dd>
+        </dl>
+      </section>
+
+      <section class="detalle-seccion">
+        <h3>Firmas aplicadas</h3>
+        <p id="sin-firmas" class="tarjeta">El documento aún no tiene firmas.</p>
         <ul id="firmas" class="tarjetas"></ul>
       </section>
 
       <section id="solicitud" class="detalle-seccion">
-        <h2>Solicitud actual</h2>
-        <p class="hoja-dato">Solicitada por <span id="solicitado-por"></span></p>
-        <ol id="eventos" class="eventos"></ol>
+        <h3>Solicitud actual</h3>
+        <div class="tarjeta">
+          <p class="solicitado">Solicitada por <strong id="solicitado-por"></strong></p>
+          <ol id="eventos" class="eventos"></ol>
+        </div>
       </section>
     </div>
   </main>
 
-  <dialog id="hoja" class="hoja-inferior">
-    <h2>Firmar documento</h2>
-    <p id="hoja-nombre" class="hoja-nombre"></p>
-    <p class="hoja-dato">SHA-256: <code id="hoja-sha256"></code></p>
-    <a id="abrir-firmador" class="boton-lleno" href="#">Abrir firmador</a>
+  <dialog id="hoja" class="hoja-inferior" aria-labelledby="hoja-titulo">
+    <span class="hoja-asa" aria-hidden="true"></span>
+    <h2 id="hoja-titulo">Firmar documento</h2>
+    <div class="hoja-documento">
+      <span class="icono-contenedor" aria-hidden="true">
+        <span class="material-symbols-outlined">picture_as_pdf</span>
+      </span>
+      <div>
+        <p id="hoja-nombre" class="hoja-nombre"></p>
+        <p id="hoja-datos" class="texto-apoyo"></p>
+      </div>
+    </div>
+    <p class="hoja-hash">
+      <span class="texto-apoyo">SHA-256</span>
+      <code id="hoja-sha256"></code>
+    </p>
+    <p class="hoja-nota">
+      <span class="material-symbols-outlined" aria-hidden="true">smartphone</span>
+      La firma se hace en la app Firmador con el certificado de este teléfono. Al terminar, el teléfono vuelve a esta página y se consulta el resultado.
+    </p>
+    <a id="abrir-firmador" class="boton-lleno" href="#">
+      <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+      Abrir firmador
+    </a>
     <button id="cancelar" class="boton-texto">Cancelar</button>
   </dialog>
 
@@ -74,12 +113,23 @@
 
   <template id="tarjeta-firma">
     <li class="tarjeta">
-      <p class="firma-titular"></p>
+      <div class="firma-encabezado">
+        <span class="icono-contenedor icono-circular icono-tonal" aria-hidden="true">
+          <span class="material-symbols-outlined">approval</span>
+        </span>
+        <div>
+          <p class="texto-apoyo">Titular del certificado</p>
+          <p class="firma-titular"></p>
+        </div>
+      </div>
       <dl class="detalle-datos">
         <dt>Emisor</dt><dd class="firma-emisor"></dd>
         <dt>Fecha declarada por el firmante</dt><dd class="firma-fecha"></dd>
       </dl>
-      <p class="firma-nota">Certificado de CA de laboratorio, no reconocido por validadores oficiales.</p>
+      <p class="firma-nota">
+        <span class="material-symbols-outlined" aria-hidden="true">info</span>
+        Certificado de CA de laboratorio, no reconocido por validadores oficiales.
+      </p>
     </li>
   </template>
 </body>

@@ -40,7 +40,10 @@ function crearTarjeta(firma) {
 // FC-09: hora con segundos, útil para registrar los casos de prueba.
 function crearEvento({ estado, hora }) {
   const evento = document.createElement('li');
-  evento.textContent = `${new Date(hora).toLocaleString('es-BO', { dateStyle: 'short', timeStyle: 'medium' })} · ${EVENTOS[estado]}`;
+  const momento = document.createElement('time');
+  momento.dateTime = hora;
+  momento.textContent = new Date(hora).toLocaleString('es-BO', { dateStyle: 'short', timeStyle: 'medium' });
+  evento.append(EVENTOS[estado], momento);
   return evento;
 }
 

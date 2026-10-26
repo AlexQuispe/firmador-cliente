@@ -14,12 +14,19 @@
   <script type="module" src="js/index.js"></script>
 </head>
 <body>
+  <p class="franja">
+    <span class="material-symbols-outlined" aria-hidden="true">science</span>
+    Entorno de demostración · certificados de laboratorio
+  </p>
+
   <main class="ingreso">
-    <h1>Gestión documental</h1>
-    <p class="chip">
-      <span class="material-symbols-outlined" aria-hidden="true">info</span>
-      Entorno de demostración
-    </p>
+    <div class="ingreso-encabezado">
+      <span class="icono-contenedor icono-grande icono-tonal" aria-hidden="true">
+        <span class="material-symbols-outlined">signature</span>
+      </span>
+      <h1>Gestión documental</h1>
+      <p class="ingreso-subtitulo">Ingresa con un usuario de demostración.</p>
+    </div>
 
     <form id="ingreso" class="formulario">
       <label class="campo">
@@ -34,7 +41,13 @@
       <button class="boton-lleno">Ingresar</button>
     </form>
 
-    <p class="ayuda">Usuarios: operador, revisor · contraseña: demo</p>
+    <p class="caja-ayuda">
+      <span class="material-symbols-outlined" aria-hidden="true">info</span>
+      <span>
+        Usuarios: <strong>operador</strong>, <strong>revisor</strong><br>
+        Contraseña: <strong>demo</strong>
+      </span>
+    </p>
   </main>
 </body>
 </html>

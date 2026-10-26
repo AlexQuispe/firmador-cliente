@@ -39,16 +39,22 @@ export async function api(ruta, opciones = {}) {
   return respuesta.json();
 }
 
+// Texto e ícono de Material Symbols de cada estado.
 const ESTADOS = {
-  SIN_FIRMA: 'Sin firma',
-  EN_CURSO: 'Firma en curso',
-  FIRMADO: 'Firmado',
-  RECHAZADA: 'Rechazada',
+  SIN_FIRMA: ['Sin firma', 'draft'],
+  EN_CURSO: ['Firma en curso', 'hourglass_top'],
+  FIRMADO: ['Firmado', 'approval'],
+  RECHAZADA: ['Rechazada', 'block'],
 };
 
 export function mostrarEstado(chip, estado, cantidadFirmas) {
+  const [texto, nombreIcono] = ESTADOS[estado];
+  const icono = document.createElement('span');
+  icono.className = 'material-symbols-outlined';
+  icono.ariaHidden = 'true';
+  icono.textContent = nombreIcono;
   chip.dataset.estado = estado;
-  chip.textContent = estado === 'FIRMADO' ? `${ESTADOS.FIRMADO} (${cantidadFirmas})` : ESTADOS[estado];
+  chip.replaceChildren(icono, estado === 'FIRMADO' ? `${texto} (${cantidadFirmas})` : texto);
 }
 
 export function formatearTamano(bytes) {
@@ -80,6 +86,8 @@ export async function solicitarFirma(documento) {
   localStorage.setItem('solicitud', JSON.stringify({ id: solicitud.id, documentoId: documento.id }));
   const { sha256Documento } = solicitud;
   document.querySelector('#hoja-nombre').textContent = documento.nombre;
+  document.querySelector('#hoja-datos').textContent =
+    `${formatearTamano(documento.tamano)} · subido por ${documento.subidoPor}`;
   document.querySelector('#hoja-sha256').textContent = `${sha256Documento.slice(0, 8)}…${sha256Documento.slice(-8)}`;
   document.querySelector('#abrir-firmador').href = solicitud.enlaceAplicacion;
   document.querySelector('#hoja').showModal();

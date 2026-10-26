@@ -16,8 +16,11 @@
 <body>
   <header class="barra-superior">
     <div class="barra-titulo">
-      <h1>Gestión documental</h1>
-      <span id="usuario" class="barra-usuario"></span>
+      <h1>Documentos</h1>
+      <span class="barra-usuario">
+        <span class="material-symbols-outlined" aria-hidden="true">person</span>
+        <span id="usuario"></span>
+      </span>
     </div>
     <button id="actualizar" class="boton-icono" aria-label="Actualizar">
       <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
@@ -26,6 +29,10 @@
       <span class="material-symbols-outlined" aria-hidden="true">logout</span>
     </button>
   </header>
+  <p class="franja">
+    <span class="material-symbols-outlined" aria-hidden="true">science</span>
+    Entorno de demostración · certificados de laboratorio
+  </p>
 
   <main class="contenido-con-fab">
     <p id="aviso" class="aviso" role="status" hidden></p>
@@ -38,16 +45,41 @@
     Subir PDF
   </button>
 
-  <nav id="acciones" class="barra-inferior" hidden>
-    <button id="firmar" class="boton-lleno">Firmar</button>
-    <a id="ver-detalle" class="boton-texto" href="#">Ver detalle</a>
+  <nav id="acciones" class="barra-inferior" aria-label="Acciones del documento seleccionado" hidden>
+    <a id="ver-detalle" class="boton-tonal" href="#">
+      <span class="material-symbols-outlined" aria-hidden="true">description</span>
+      Ver detalle
+    </a>
+    <button id="firmar" class="boton-lleno">
+      <span class="material-symbols-outlined" aria-hidden="true">signature</span>
+      Firmar
+    </button>
   </nav>
 
-  <dialog id="hoja" class="hoja-inferior">
-    <h2>Firmar documento</h2>
-    <p id="hoja-nombre" class="hoja-nombre"></p>
-    <p class="hoja-dato">SHA-256: <code id="hoja-sha256"></code></p>
-    <a id="abrir-firmador" class="boton-lleno" href="#">Abrir firmador</a>
+  <dialog id="hoja" class="hoja-inferior" aria-labelledby="hoja-titulo">
+    <span class="hoja-asa" aria-hidden="true"></span>
+    <h2 id="hoja-titulo">Firmar documento</h2>
+    <div class="hoja-documento">
+      <span class="icono-contenedor" aria-hidden="true">
+        <span class="material-symbols-outlined">picture_as_pdf</span>
+      </span>
+      <div>
+        <p id="hoja-nombre" class="hoja-nombre"></p>
+        <p id="hoja-datos" class="texto-apoyo"></p>
+      </div>
+    </div>
+    <p class="hoja-hash">
+      <span class="texto-apoyo">SHA-256</span>
+      <code id="hoja-sha256"></code>
+    </p>
+    <p class="hoja-nota">
+      <span class="material-symbols-outlined" aria-hidden="true">smartphone</span>
+      La firma se hace en la app Firmador con el certificado de este teléfono. Al terminar, el teléfono vuelve a esta página y se consulta el resultado.
+    </p>
+    <a id="abrir-firmador" class="boton-lleno" href="#">
+      <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+      Abrir firmador
+    </a>
     <button id="cancelar" class="boton-texto">Cancelar</button>
   </dialog>
 
@@ -56,7 +88,10 @@
   <template id="fila">
     <li>
       <button class="fila" aria-pressed="false">
-        <span class="material-symbols-outlined fila-icono" aria-hidden="true">picture_as_pdf</span>
+        <span class="icono-contenedor" aria-hidden="true">
+          <span class="material-symbols-outlined icono-pdf">picture_as_pdf</span>
+          <span class="material-symbols-outlined icono-seleccion">check</span>
+        </span>
         <span class="fila-texto">
           <span class="fila-nombre"></span>
           <span class="fila-datos"></span>
