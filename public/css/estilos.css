@@ -47,6 +47,7 @@
 
   --espacio: 16px;
   --objetivo-tactil: 48px;
+  --ancho-maximo: 1120px;
   --alto-barra-inferior: calc(var(--objetivo-tactil) + var(--espacio) * 2);
 }
 
@@ -260,8 +261,6 @@ h1, h2, h3, p { margin: 0; }
 .fila-texto { display: grid; gap: calc(var(--espacio) / 4); justify-items: start; flex: 1; min-width: 0; }
 .fila-nombre { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: var(--texto-titulo-medio); }
 .fila-datos, .fila-firma { font: var(--texto-apoyo); color: inherit; opacity: 0.85; }
-.fila-firma { display: flex; align-items: center; gap: calc(var(--espacio) / 4); }
-.fila-firma .material-symbols-outlined { font-size: 1rem; color: var(--color-primario); }
 
 .chip-estado {
   display: inline-flex;
@@ -448,3 +447,82 @@ p.tarjeta[hidden] { display: none; }
 .eventos li:last-child::before { border-color: var(--color-primario); background: var(--color-primario); }
 .eventos li:last-child::after { display: none; }
 .eventos time { font-weight: 400; color: var(--color-sobre-superficie-variante); }
+
+/* Escritorio: ventana amplia de Material 3 (≥ 840 px) */
+@media (min-width: 840px) {
+  :root { --margen-lateral: max(calc(var(--espacio) * 1.5), (100% - var(--ancho-maximo)) / 2); }
+
+  .barra-superior { min-height: 72px; padding-inline: var(--margen-lateral); }
+  .barra-superior > a.boton-icono:first-child { margin-left: calc(var(--espacio) * -0.75); }
+  .barra-superior > .boton-icono:last-child { margin-right: calc(var(--espacio) * -0.75); }
+  .franja { padding-inline: var(--margen-lateral); }
+
+  /* Ingreso: formulario en una tarjeta centrada */
+  .ingreso {
+    max-width: 440px;
+    margin: 8vh auto;
+    padding: calc(var(--espacio) * 2.5);
+    border-radius: var(--forma-extra-grande);
+    background: var(--color-superficie-contenedor-baja);
+  }
+  .ingreso .campo span { background: var(--color-superficie-contenedor-baja); }
+
+  /* Documentos: cada fila se lee como una fila de tabla */
+  .contenido-con-fab { padding: calc(var(--espacio) * 1.5) var(--margen-lateral) calc(var(--espacio) * 7); }
+  .fila { align-items: center; padding: calc(var(--espacio) * 0.75) calc(var(--espacio) * 1.25); }
+  .fila-texto {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr) 9.5rem minmax(0, 1.6fr);
+    align-items: center;
+    gap: calc(var(--espacio) * 1.5);
+  }
+  .fila-firma { min-width: 0; }
+
+  .fab { right: max(calc(var(--espacio) * 1.5), (100vw - var(--ancho-maximo)) / 2); bottom: calc(var(--espacio) * 1.5); }
+
+  /* Acciones de la selección: barra flotante centrada */
+  .barra-inferior {
+    inset: auto 0 calc(var(--espacio) * 1.5) 0;
+    width: fit-content;
+    min-width: 360px;
+    min-height: 0;
+    margin: 0 auto;
+    padding: calc(var(--espacio) * 0.75);
+    border-radius: var(--forma-extra-grande);
+    box-shadow: var(--elevacion-3);
+  }
+
+  /* La hoja inferior pasa a diálogo centrado */
+  .hoja-inferior {
+    inset: 0;
+    max-width: 480px;
+    height: fit-content;
+    margin: auto;
+    padding: calc(var(--espacio) * 1.5);
+    border-radius: var(--forma-extra-grande);
+  }
+  .hoja-asa { display: none; }
+
+  .snackbar { inset: auto auto calc(var(--espacio) * 1.5) calc(var(--espacio) * 1.5); max-width: 560px; }
+
+  /* Detalle: datos y solicitud a la izquierda, firmas a la derecha */
+  .contenido { padding: calc(var(--espacio) * 2) var(--margen-lateral) calc(var(--espacio) * 3); }
+  .detalle {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "encabezado encabezado"
+      "documento firmas"
+      "solicitud firmas";
+    gap: calc(var(--espacio) * 1.5) calc(var(--espacio) * 2);
+    align-items: start;
+  }
+  .detalle-encabezado { grid-area: encabezado; grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+  .detalle-acciones > * { flex: none; }
+  .detalle-documento { grid-area: documento; }
+  .detalle-firmas { grid-area: firmas; }
+  #solicitud { grid-area: solicitud; }
+}
+
+@media (min-width: 840px) and (hover: hover) {
+  .fila:not([aria-pressed="true"], .resaltada):hover { background: var(--color-superficie-contenedor); }
+}
