@@ -5,7 +5,7 @@ import {
 
 const EVENTOS = {
   PENDIENTE: 'Solicitud creada',
-  EN_PROCESO: 'Iniciada en el teléfono',
+  EN_PROCESO: 'Firma iniciada',
   FIRMADA: 'Firmada',
   RECHAZADA: 'Rechazada en el teléfono',
 };
@@ -34,6 +34,8 @@ function crearTarjeta(firma) {
   tarjeta.querySelector('.firma-titular').textContent = firma.titular;
   tarjeta.querySelector('.firma-emisor').textContent = firma.emisor;
   tarjeta.querySelector('.firma-fecha').textContent = formatearFecha(firma.fechaDeclarada);
+  tarjeta.querySelector('.firma-nota').hidden =
+    !String(firma.emisor ?? '').toLowerCase().includes('laboratorio');
   return tarjeta;
 }
 
@@ -79,9 +81,10 @@ async function cargar() {
 botonFirmar.addEventListener('click', async () => {
   botonFirmar.disabled = true;
   try {
-    await solicitarFirma(documento);
+    const resultado = await solicitarFirma(documento);
+    if (resultado === 'FIRMADA') await actualizar();
   } catch {
-    mostrarSnackbar('No se pudo crear la solicitud de firma.');
+    mostrarSnackbar('No se pudo completar la firma.');
   } finally {
     botonFirmar.disabled = false;
   }

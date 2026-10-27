@@ -77,6 +77,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0;
@@ -176,7 +177,7 @@ h1, h2, h3, p { margin: 0; }
 /* Formularios */
 .formulario { display: grid; gap: calc(var(--espacio) * 1.5); }
 
-.campo { position: relative; display: grid; }
+.campo { position: relative; display: grid; min-width: 0; }
 .campo span {
   position: absolute;
   top: -8px;
@@ -186,17 +187,21 @@ h1, h2, h3, p { margin: 0; }
   color: var(--color-sobre-superficie-variante);
   background: var(--color-superficie);
 }
-.campo input {
+.campo input, .campo select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   min-height: 56px;
   padding: 0 var(--espacio);
   border: 1px solid var(--color-contorno);
   border-radius: var(--forma-extra-pequena);
   font: var(--texto-cuerpo);
   color: inherit;
-  background: none;
+  background: var(--color-superficie-contenedor-baja);
 }
-.campo input:focus { outline: 2px solid var(--color-primario); outline-offset: -1px; border-color: transparent; }
+.campo input:focus, .campo select:focus { outline: 2px solid var(--color-primario); outline-offset: -1px; border-color: transparent; }
 .campo:focus-within span { color: var(--color-primario); }
+.formulario[hidden], .campo[hidden] { display: none; }
 
 .mensaje-error { font: var(--texto-cuerpo-pequeno); color: var(--color-error); }
 
@@ -328,6 +333,9 @@ h1, h2, h3, p { margin: 0; }
   width: 100%;
   max-width: 640px;
   max-height: 90vh;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0 auto;
   padding: calc(var(--espacio) * 0.75) calc(var(--espacio) * 1.5) calc(var(--espacio) * 1.5);
   border: 0;
@@ -350,10 +358,12 @@ h1, h2, h3, p { margin: 0; }
 .hoja-documento .icono-contenedor { background: var(--color-superficie-contenedor-baja); }
 .hoja-documento > div { display: grid; gap: 2px; min-width: 0; }
 .hoja-nombre { font: var(--texto-titulo-medio); overflow-wrap: anywhere; }
-.hoja-hash { display: grid; gap: calc(var(--espacio) / 4); }
-.hoja-hash code { font: var(--texto-mono); }
+.hoja-hash { display: grid; gap: calc(var(--espacio) / 4); min-width: 0; }
+.hoja-hash code { display: block; min-width: 0; max-width: 100%; font: var(--texto-mono); overflow-wrap: anywhere; word-break: break-word; }
 .hoja-nota { display: flex; gap: calc(var(--espacio) * 0.75); font: var(--texto-cuerpo-pequeno); color: var(--color-sobre-superficie-variante); }
 .hoja-nota .material-symbols-outlined { font-size: 1.25rem; color: var(--color-primario); }
+.formulario-jacobitus { gap: calc(var(--espacio) * 1.25); }
+.formulario-jacobitus .boton-lleno { width: 100%; }
 
 .snackbar {
   position: fixed;

@@ -30,7 +30,7 @@ y abrir `http://<IP-del-equipo>:8080` en Chrome del teléfono, conectado a la mi
 - Solo casos ideales: sin validaciones ni ramas de error elaboradas mientras P2 no esté cerrado; un fallo muestra un mensaje genérico.
 - La app móvil se abre solo con un botón que toca el usuario.
 - Al volver del teléfono, consultar el estado; nunca asumir el resultado.
-- Titular y fecha de una firma salen de lo que informa el servicio a partir del PDF, nunca de la sesión. Nunca mostrar «Firma válida»: el certificado es de laboratorio.
+- Titular y fecha de una firma salen de lo que informa el servicio a partir del PDF, nunca de la sesión. Nunca mostrar «Firma válida»: el servicio solo extrae metadatos y no valida la firma ni la cadena de certificados. Mostrar el aviso de laboratorio solo cuando el emisor extraído del certificado lo indique.
 - El ingreso es simulado y se rotula como entorno de demostración.
 
 ## Evidencia

@@ -31,7 +31,7 @@
   </header>
   <p class="franja">
     <span class="material-symbols-outlined" aria-hidden="true">science</span>
-    Entorno de demostración · certificados de laboratorio
+    Entorno de demostración
   </p>
 
   <main class="contenido-con-fab">
@@ -68,11 +68,11 @@
         <p id="hoja-datos" class="texto-apoyo"></p>
       </div>
     </div>
-    <p class="hoja-hash">
+    <p id="hoja-hash" class="hoja-hash">
       <span class="texto-apoyo">SHA-256</span>
       <code id="hoja-sha256"></code>
     </p>
-    <p class="hoja-nota">
+    <p id="nota-movil" class="hoja-nota">
       <span class="material-symbols-outlined" aria-hidden="true">smartphone</span>
       La firma se hace en la app Firmador con el certificado de este teléfono. Al terminar, el teléfono vuelve a esta página y se consulta el resultado.
     </p>
@@ -80,6 +80,25 @@
       <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
       Abrir firmador
     </a>
+    <div id="formulario-jacobitus" class="formulario formulario-jacobitus" hidden>
+      <p class="hoja-nota">
+        <span class="material-symbols-outlined" aria-hidden="true">desktop_windows</span>
+        Jacobitus Escritorio debe estar abierto en esta computadora. El PIN se usa solo durante la firma.
+      </p>
+      <label class="campo">
+        <span>Token conectado</span>
+        <select id="jacobitus-token" required></select>
+      </label>
+      <label class="campo">
+        <span>PIN del token</span>
+        <input id="jacobitus-pin" type="password" inputmode="numeric" autocomplete="off" required>
+      </label>
+      <label id="campo-certificado" class="campo" hidden>
+        <span>Certificado</span>
+        <select id="jacobitus-certificado" required></select>
+      </label>
+      <button id="firmar-jacobitus" class="boton-lleno" type="button">Cargar certificados</button>
+    </div>
     <button id="cancelar" class="boton-texto">Cancelar</button>
   </dialog>
 

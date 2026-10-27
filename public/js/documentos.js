@@ -100,9 +100,10 @@ function seleccionar(documento) {
 botonFirmar.addEventListener('click', async () => {
   botonFirmar.disabled = true;
   try {
-    await solicitarFirma(seleccionado);
+    const resultado = await solicitarFirma(seleccionado);
+    if (resultado === 'FIRMADA') await actualizar();
   } catch {
-    mostrarSnackbar('No se pudo crear la solicitud de firma.');
+    mostrarSnackbar('No se pudo completar la firma.');
   } finally {
     botonFirmar.disabled = false;
   }
