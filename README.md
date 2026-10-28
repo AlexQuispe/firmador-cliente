@@ -2,7 +2,11 @@
 
 Web _mobile-first_ en HTML, CSS y JavaScript, sin framework ni dependencias, que simula un **sistema de gestión documental interno**: el usuario ingresa, sube un PDF, lo firma desde Android o computadora y consulta las firmas aplicadas.
 
-> ⚠️ **Prueba de concepto, prioridad P2.** La web no firma ni maneja claves privadas. En Android, la firma ocurre en `firmador-movil`; en computadora, la web llama al servicio local de Jacobitus Escritorio. La identidad sale del certificado usado, no de la sesión web. Solo se implementan los casos ideales; un fallo muestra un mensaje genérico.
+> ⚠️ **Prueba de concepto académica.** La web no firma ni maneja claves privadas. En Android, la firma ocurre en `firmador-movil`; en computadora, la web llama al servicio local de Jacobitus Escritorio. La identidad sale del certificado usado, no de la sesión web. Solo se implementan los casos ideales; un fallo muestra un mensaje genérico.
+
+## 🎓 Contexto
+
+Parte de la prueba de concepto de la monografía *Estrategias basadas en PMBOK 7 con un enfoque adaptativo para la incorporación de dispositivos móviles en el servicio de firma digital de la Entidad Certificadora Pública AGETIC, orientadas a la entrega de valor al cliente* (Maestría en Transformación Digital y Gestión de Proyectos Tecnológicos, Universidad Mayor de San Andrés, 2026). Junto con [`firmador-servicio`](https://github.com/AlexQuispe/firmador-servicio), forma el sistema de gestión documental de ejemplo con el que se probó que [`firmador-movil`](https://github.com/AlexQuispe/firmador-movil) puede atender firmas solicitadas desde otro sistema: el escenario de una entidad usuaria, como AGETIC con su Sistema de Plantillas.
 
 ## 🔄 Firma desde Android
 
@@ -32,11 +36,11 @@ El enlace solo abre la app y no devuelve nada a la web: el resultado se obtiene 
 
 ## 🖥️ Firma desde computadora
 
-En Chrome, **Firmar** abre una hoja con el documento, su SHA-256, el token conectado y un campo para el PIN. Tras cargar y elegir el certificado, la web envía el PDF a la API local configurada en `JACOBITUS_URL`, recibe el PDF firmado y lo entrega a `firmador-servicio`. El PIN solo se usa en memoria durante esa operación.
+Se agregó después de la prueba de integración y no se evaluó en la monografía. En Chrome, **Firmar** abre una hoja con el documento, su SHA-256, el token conectado y un campo para el PIN. Tras cargar y elegir el certificado, la web envía el PDF a la API local configurada en `JACOBITUS_URL`, recibe el PDF firmado y lo entrega a `firmador-servicio`. El PIN solo se usa en memoria durante esa operación.
 
 Jacobitus debe estar abierto en la computadora. La web se abre como `http://localhost:8080` o mediante HTTPS; en Chrome puede aparecer un permiso para acceder a la red local. El manual de [instalación](INSTALL.md) detalla los orígenes CORS para escritorio y Android.
 
-## ✅ Funciones (P2)
+## 🧩 Funciones
 
 - Ingreso simulado con usuarios fijos, rotulado como entorno de demostración (FC-01).
 - Lista de documentos con nombre, tamaño, fecha, quién lo subió, estado (`Sin firma`, `Firma en curso`, `Firmado (n)`, `Rechazada`) y último firmante (FC-02).
@@ -49,10 +53,20 @@ Jacobitus debe estar abierto en la computadora. La web se abre como `http://loca
 
 Titular, emisor y fecha salen de lo que `firmador-servicio` extrae del PDF firmado. La nota de CA de laboratorio solo aparece cuando el emisor extraído indica «laboratorio». El servicio extrae metadatos, pero no valida la firma ni la cadena de certificados; la web no muestra «Firma válida».
 
-Los eventos de la solicitud (FC-09) y las validaciones con mensajes específicos (FC-10) son P3: solo si P2 queda cerrado y hay tiempo.
+También muestra los eventos de la solicitud con su hora (FC-09). Las validaciones con mensajes específicos (FC-10) no se implementaron.
 
-## 🎯 Aporte a la monografía
+## ✅ Qué se comprobó
 
-Junto con `firmador-servicio`, aporta evidencia descriptiva al requisito **RF07** y al criterio **V5**: la firma solicitada desde un sistema documental, el escenario de AGETIC como entidad usuaria. No es necesaria para evaluar el núcleo (firma local en el teléfono) ni permite afirmar facilidad de uso o ahorro de tiempo, porque no hay pruebas con usuarios.
+En la prueba de integración (25 de octubre de 2026), un Samsung Galaxy S23 Ultra con Android 16 y Chrome atendió tres solicitudes: la primera se firmó, la segunda se rechazó en el teléfono y la tercera agregó una segunda firma al documento de la primera. Las catorce comparaciones del SHA-256 entre lo que entregó el servicio, lo que firmó el teléfono y lo que guardó el servicio coincidieron; el rechazo no modificó el documento y la segunda firma no alteró la primera.
+
+Es un sistema de ejemplo, no preparado para un uso real: la solicitud se atiende solo con su ID, sin clave de acceso ni vencimiento; el servicio acepta dos veces el mismo resultado; y la comunicación no está cifrada.
+
+## 🏷️ Versión evaluada
+
+| Prueba                            | Commit |
+| --------------------------------- | ------ |
+| Prueba de integración (iteración I5) | [`879e8ca`](https://github.com/AlexQuispe/firmador-cliente/tree/879e8ca4377fda42387365349859fd6b0048c752) |
+
+Los cambios posteriores (firma desde computadora con Jacobitus, ajustes visuales y documentación) no se evaluaron en la monografía.
 
 📄 Detalle: [Especificaciones técnicas](docs/ESPECIFICACIONES_TECNICAS.md) · 🛠️ Instalación: [INSTALL.md](INSTALL.md) · 📜 [Licencia LPG-Bolivia v1.1](LICENSE)
