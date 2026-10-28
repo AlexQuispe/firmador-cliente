@@ -1,0 +1,19 @@
+{
+  "id": "d2",
+  "nombre": "memorandum-14.pdf",
+  "tamano": 48210,
+  "sha256": "9c4e2a7b1d8f3e6a0c5b9d2f7e1a4c8b3d6f0a9e2c5b8d1f4a7e0c3b6d9f2a5e",
+  "subidoPor": "revisor",
+  "subidoEn": "2026-10-25T14:10:00Z",
+  "estado": "EN_CURSO",
+  "firmas": [],
+  "solicitudActual": {
+    "id": "s2",
+    "estado": "EN_PROCESO",
+    "solicitadoPor": "revisor",
+    "eventos": [
+      { "estado": "PENDIENTE", "hora": "2026-10-25T14:11:00Z" },
+      { "estado": "EN_PROCESO", "hora": "2026-10-25T14:11:40Z" }
+    ]
+  }
+}

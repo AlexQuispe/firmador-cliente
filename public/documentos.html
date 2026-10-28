@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
+  <title>Documentos · Gestión documental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script type="module" src="js/documentos.js"></script>
+</head>
+<body>
+  <header class="barra-superior">
+    <div class="barra-titulo">
+      <h1>Documentos</h1>
+      <span class="barra-usuario">
+        <span class="material-symbols-outlined" aria-hidden="true">person</span>
+        <span id="usuario"></span>
+      </span>
+    </div>
+    <button id="actualizar" class="boton-icono" aria-label="Actualizar">
+      <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+    </button>
+    <button id="salir" class="boton-icono" aria-label="Salir">
+      <span class="material-symbols-outlined" aria-hidden="true">logout</span>
+    </button>
+  </header>
+  <p class="franja">
+    <span class="material-symbols-outlined" aria-hidden="true">science</span>
+    Entorno de demostración
+  </p>
+
+  <main class="contenido-con-fab">
+    <p id="aviso" class="aviso" role="status" hidden></p>
+    <ul id="lista" class="lista"></ul>
+  </main>
+
+  <input id="selector" type="file" accept="application/pdf" hidden>
+  <button id="subir" class="fab">
+    <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
+    Subir PDF
+  </button>
+
+  <nav id="acciones" class="barra-inferior" aria-label="Acciones del documento seleccionado" hidden>
+    <a id="ver-detalle" class="boton-tonal" href="#">
+      <span class="material-symbols-outlined" aria-hidden="true">description</span>
+      Ver detalle
+    </a>
+    <button id="firmar" class="boton-lleno">
+      <span class="material-symbols-outlined" aria-hidden="true">signature</span>
+      Firmar
+    </button>
+  </nav>
+
+  <dialog id="hoja" class="hoja-inferior" aria-labelledby="hoja-titulo">
+    <span class="hoja-asa" aria-hidden="true"></span>
+    <h2 id="hoja-titulo">Firmar documento</h2>
+    <div class="hoja-documento">
+      <span class="icono-contenedor" aria-hidden="true">
+        <span class="material-symbols-outlined">picture_as_pdf</span>
+      </span>
+      <div>
+        <p id="hoja-nombre" class="hoja-nombre"></p>
+        <p id="hoja-datos" class="texto-apoyo"></p>
+      </div>
+    </div>
+    <p id="hoja-hash" class="hoja-hash">
+      <span class="texto-apoyo">SHA-256</span>
+      <code id="hoja-sha256"></code>
+    </p>
+    <p id="nota-movil" class="hoja-nota">
+      <span class="material-symbols-outlined" aria-hidden="true">smartphone</span>
+      La firma se hace en la app Firmador con el certificado de este teléfono. Al terminar, el teléfono vuelve a esta página y se consulta el resultado.
+    </p>
+    <a id="abrir-firmador" class="boton-lleno" href="#">
+      <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+      Abrir firmador
+    </a>
+    <div id="formulario-jacobitus" class="formulario formulario-jacobitus" hidden>
+      <p class="hoja-nota">
+        <span class="material-symbols-outlined" aria-hidden="true">desktop_windows</span>
+        Jacobitus Escritorio debe estar abierto en esta computadora. El PIN se usa solo durante la firma.
+      </p>
+      <label class="campo">
+        <span>Token conectado</span>
+        <select id="jacobitus-token" required></select>
+      </label>
+      <label class="campo">
+        <span>PIN del token</span>
+        <input id="jacobitus-pin" type="password" inputmode="numeric" autocomplete="off" required>
+      </label>
+      <label id="campo-certificado" class="campo" hidden>
+        <span>Certificado</span>
+        <select id="jacobitus-certificado" required></select>
+      </label>
+      <button id="firmar-jacobitus" class="boton-lleno" type="button">Cargar certificados</button>
+    </div>
+    <button id="cancelar" class="boton-texto">Cancelar</button>
+  </dialog>
+
+  <p id="snackbar" class="snackbar" role="status" hidden></p>
+
+  <template id="fila">
+    <li>
+      <button class="fila" aria-pressed="false">
+        <span class="icono-contenedor" aria-hidden="true">
+          <span class="material-symbols-outlined icono-pdf">picture_as_pdf</span>
+          <span class="material-symbols-outlined icono-seleccion">check</span>
+        </span>
+        <span class="fila-texto">
+          <span class="fila-nombre"></span>
+          <span class="fila-datos"></span>
+          <span class="chip-estado"></span>
+          <span class="fila-firma">
+            <span class="fila-firmante"></span>
+          </span>
+        </span>
+      </button>
+    </li>
+  </template>
+</body>
+</html>

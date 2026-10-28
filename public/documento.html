@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
+  <title>Detalle · Gestión documental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script type="module" src="js/documento.js"></script>
+</head>
+<body>
+  <header class="barra-superior">
+    <a class="boton-icono" href="documentos" aria-label="Volver a documentos">
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+    </a>
+    <div class="barra-titulo">
+      <h1>Detalle</h1>
+    </div>
+    <button id="actualizar" class="boton-icono" aria-label="Actualizar">
+      <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+    </button>
+  </header>
+  <p class="franja">
+    <span class="material-symbols-outlined" aria-hidden="true">science</span>
+    Entorno de demostración
+  </p>
+
+  <main class="contenido">
+    <p id="aviso" class="aviso" role="status" hidden></p>
+
+    <div id="contenido" class="detalle" hidden>
+      <section class="detalle-encabezado">
+        <div class="detalle-titulo">
+          <span class="icono-contenedor icono-grande icono-tonal" aria-hidden="true">
+            <span class="material-symbols-outlined">picture_as_pdf</span>
+          </span>
+          <div class="detalle-titulo-texto">
+            <h2 id="nombre" class="detalle-nombre"></h2>
+            <span id="estado" class="chip-estado"></span>
+          </div>
+        </div>
+        <div class="detalle-acciones">
+          <button id="firmar" class="boton-lleno">
+            <span class="material-symbols-outlined" aria-hidden="true">signature</span>
+            Firmar
+          </button>
+          <a id="descargar" class="boton-tonal" href="#" download>
+            <span class="material-symbols-outlined" aria-hidden="true">download</span>
+            Descargar
+          </a>
+        </div>
+      </section>
+
+      <section class="detalle-seccion detalle-documento">
+        <h3>Documento</h3>
+        <dl class="tarjeta detalle-datos">
+          <dt>Tamaño</dt><dd id="tamano"></dd>
+          <dt>Subido por</dt><dd id="subido-por"></dd>
+          <dt>Subido el</dt><dd id="subido-en"></dd>
+          <dt>SHA-256</dt><dd><code id="sha256"></code></dd>
+        </dl>
+      </section>
+
+      <section class="detalle-seccion detalle-firmas">
+        <h3>Firmas aplicadas</h3>
+        <p id="sin-firmas" class="tarjeta">El documento aún no tiene firmas.</p>
+        <ul id="firmas" class="tarjetas"></ul>
+      </section>
+
+      <section id="solicitud" class="detalle-seccion">
+        <h3>Solicitud actual</h3>
+        <div class="tarjeta">
+          <p class="solicitado">Solicitada por <strong id="solicitado-por"></strong></p>
+          <ol id="eventos" class="eventos"></ol>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="hoja" class="hoja-inferior" aria-labelledby="hoja-titulo">
+    <span class="hoja-asa" aria-hidden="true"></span>
+    <h2 id="hoja-titulo">Firmar documento</h2>
+    <div class="hoja-documento">
+      <span class="icono-contenedor" aria-hidden="true">
+        <span class="material-symbols-outlined">picture_as_pdf</span>
+      </span>
+      <div>
+        <p id="hoja-nombre" class="hoja-nombre"></p>
+        <p id="hoja-datos" class="texto-apoyo"></p>
+      </div>
+    </div>
+    <p id="hoja-hash" class="hoja-hash">
+      <span class="texto-apoyo">SHA-256</span>
+      <code id="hoja-sha256"></code>
+    </p>
+    <p id="nota-movil" class="hoja-nota">
+      <span class="material-symbols-outlined" aria-hidden="true">smartphone</span>
+      La firma se hace en la app Firmador con el certificado de este teléfono. Al terminar, el teléfono vuelve a esta página y se consulta el resultado.
+    </p>
+    <a id="abrir-firmador" class="boton-lleno" href="#">
+      <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+      Abrir firmador
+    </a>
+    <div id="formulario-jacobitus" class="formulario formulario-jacobitus" hidden>
+      <p class="hoja-nota">
+        <span class="material-symbols-outlined" aria-hidden="true">desktop_windows</span>
+        Jacobitus Escritorio debe estar abierto en esta computadora. El PIN se usa solo durante la firma.
+      </p>
+      <label class="campo">
+        <span>Token conectado</span>
+        <select id="jacobitus-token" required></select>
+      </label>
+      <label class="campo">
+        <span>PIN del token</span>
+        <input id="jacobitus-pin" type="password" inputmode="numeric" autocomplete="off" required>
+      </label>
+      <label id="campo-certificado" class="campo" hidden>
+        <span>Certificado</span>
+        <select id="jacobitus-certificado" required></select>
+      </label>
+      <button id="firmar-jacobitus" class="boton-lleno" type="button">Cargar certificados</button>
+    </div>
+    <button id="cancelar" class="boton-texto">Cancelar</button>
+  </dialog>
+
+  <p id="snackbar" class="snackbar" role="status" hidden></p>
+
+  <template id="tarjeta-firma">
+    <li class="tarjeta">
+      <div class="firma-encabezado">
+        <span class="icono-contenedor icono-circular icono-tonal" aria-hidden="true">
+          <span class="material-symbols-outlined">approval</span>
+        </span>
+        <div>
+          <p class="texto-apoyo">Titular del certificado</p>
+          <p class="firma-titular"></p>
+        </div>
+      </div>
+      <dl class="detalle-datos">
+        <dt>Emisor</dt><dd class="firma-emisor"></dd>
+        <dt>Fecha declarada por el firmante</dt><dd class="firma-fecha"></dd>
+      </dl>
+      <p class="firma-nota" hidden>
+        <span class="material-symbols-outlined" aria-hidden="true">info</span>
+        Certificado de CA de laboratorio, no reconocido por validadores oficiales.
+      </p>
+    </li>
+  </template>
+</body>
+</html>

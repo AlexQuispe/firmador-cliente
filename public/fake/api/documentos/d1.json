@@ -1,0 +1,30 @@
+{
+  "id": "d1",
+  "nombre": "informe-anual-2026.pdf",
+  "tamano": 182345,
+  "sha256": "3f8a1c9e5b7d2f4a6c8e0b1d3f5a7c9e1b3d5f7a9c1e3b5d7f9a1c3e5b7d9f1a",
+  "subidoPor": "operador",
+  "subidoEn": "2026-10-25T14:02:00Z",
+  "estado": "FIRMADO",
+  "firmas": [
+    {
+      "titular": "USUARIO DE PRUEBA",
+      "emisor": "CA DE LABORATORIO",
+      "serie": "1A2B3C",
+      "vigenciaDesde": "2026-10-01T00:00:00Z",
+      "vigenciaHasta": "2027-10-01T00:00:00Z",
+      "fechaDeclarada": "2026-10-25T14:05:00Z",
+      "subFilter": "ETSI.CAdES.detached"
+    }
+  ],
+  "solicitudActual": {
+    "id": "s1",
+    "estado": "FIRMADA",
+    "solicitadoPor": "operador",
+    "eventos": [
+      { "estado": "PENDIENTE", "hora": "2026-10-25T14:03:00Z" },
+      { "estado": "EN_PROCESO", "hora": "2026-10-25T14:04:00Z" },
+      { "estado": "FIRMADA", "hora": "2026-10-25T14:05:10Z" }
+    ]
+  }
+}

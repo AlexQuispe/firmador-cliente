@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
+  <title>Ingreso · Gestión documental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script type="module" src="js/index.js"></script>
+</head>
+<body>
+  <p class="franja">
+    <span class="material-symbols-outlined" aria-hidden="true">science</span>
+    Entorno de demostración
+  </p>
+
+  <main class="ingreso">
+    <div class="ingreso-encabezado">
+      <span class="icono-contenedor icono-grande icono-tonal" aria-hidden="true">
+        <span class="material-symbols-outlined">signature</span>
+      </span>
+      <h1>Gestión documental</h1>
+      <p class="ingreso-subtitulo">Ingresa con un usuario de demostración.</p>
+    </div>
+
+    <form id="ingreso" class="formulario">
+      <label class="campo">
+        <span>Usuario</span>
+        <input name="usuario" autocomplete="username" autocapitalize="none" required>
+      </label>
+      <label class="campo">
+        <span>Contraseña</span>
+        <input name="clave" type="password" autocomplete="current-password" required>
+      </label>
+      <p id="mensaje" class="mensaje-error" role="alert" hidden>Usuario o contraseña incorrectos.</p>
+      <button class="boton-lleno">Ingresar</button>
+    </form>
+
+    <p class="caja-ayuda">
+      <span class="material-symbols-outlined" aria-hidden="true">info</span>
+      <span>
+        Usuarios: <strong>operador</strong>, <strong>revisor</strong><br>
+        Contraseña: <strong>demo</strong>
+      </span>
+    </p>
+  </main>
+</body>
+</html>
