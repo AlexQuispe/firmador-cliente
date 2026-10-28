@@ -55,4 +55,4 @@ Los eventos de la solicitud (FC-09) y las validaciones con mensajes específicos
 
 Junto con `firmador-servicio`, aporta evidencia descriptiva al requisito **RF07** y al criterio **V5**: la firma solicitada desde un sistema documental, el escenario de AGETIC como entidad usuaria. No es necesaria para evaluar el núcleo (firma local en el teléfono) ni permite afirmar facilidad de uso o ahorro de tiempo, porque no hay pruebas con usuarios.
 
-📄 Detalle: [Especificaciones técnicas](docs/ESPECIFICACIONES_TECNICAS.md) · 🛠️ Instalación: [INSTALL.md](INSTALL.md)
+📄 Detalle: [Especificaciones técnicas](docs/ESPECIFICACIONES_TECNICAS.md) · 🛠️ Instalación: [INSTALL.md](INSTALL.md) · 📜 [Licencia LPG-Bolivia v1.1](LICENSE)
