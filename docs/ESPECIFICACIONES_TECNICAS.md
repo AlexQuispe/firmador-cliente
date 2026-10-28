@@ -1,6 +1,6 @@
 # Especificaciones técnicas — Firmador cliente
 
-**Versión:** 0.4 · **Estado:** listo para implementar · **Prioridad:** P2 · **Trazabilidad:** requisito RF07 y criterio V5 de la monografía (apartados 3.2.2 y 3.2.6).
+**Versión:** 0.4 · **Estado:** implementado y probado · **Prioridad:** P2 · **Trazabilidad:** requisito RF07 y criterio V5 de la monografía (apartados 3.2.2 y 3.2.6).
 
 ## 1. Alcance
 
@@ -8,7 +8,7 @@ Web _mobile-first_ que simula un **sistema de gestión documental interno** con 
 
 La web no firma, no maneja claves privadas y no emite certificados. La identidad del firmante sale del certificado usado por Firmador Móvil o Jacobitus Escritorio, nunca de la sesión web.
 
-**Simplificación declarada:** se implementan solo los casos ideales. Sin validaciones de entrada ni manejo detallado de errores; un fallo se muestra con un mensaje genérico. Única excepción: si el servicio responde `404` a la consulta de la solicitud guardada, la web la descarta sin aviso. Las validaciones quedan como mejora si sobra tiempo.
+**Simplificación declarada:** se implementan solo los casos ideales. Sin validaciones de entrada ni manejo detallado de errores; un fallo se muestra con un mensaje genérico. Única excepción: si el servicio responde `404` a la consulta de la solicitud guardada, la web la descarta sin aviso. Las validaciones no se implementaron.
 
 ## 2. Arquitectura
 
@@ -62,7 +62,7 @@ flowchart LR
 | FC-10 | Validaciones y mensajes de error específicos                             | P3        | Casos inválidos                   |
 | FC-11 | Firmar desde escritorio con Jacobitus y registrar el resultado           | P2        | Prueba web → Jacobitus → web      |
 
-P3 se implementa solo con P2 cerrado y si hay tiempo.
+Todos están implementados, salvo FC-10. FC-11 se agregó después de la prueba de integración y no se evaluó en la monografía.
 
 ## 5. Reglas
 

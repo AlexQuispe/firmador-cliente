@@ -2,27 +2,16 @@
 
 Web _mobile-first_ en HTML, CSS y JavaScript sin framework, de prueba de concepto académica: simula un sistema de gestión documental interno que pide firmas de PDF a `firmador-movil` a través de `firmador-servicio`. No firma ni maneja claves.
 
-## Fuente de verdad
-
-- Requisitos FC-xx, vistas y reglas: `docs/ESPECIFICACIONES_TECNICAS.md`. Léela por secciones según la tarea; no la copies aquí ni la reformules en el código.
-- API: `../firmador-servicio/docs/ESPECIFICACIONES_TECNICAS.md`. Si falta algo, se agrega primero allí; no inventes endpoints ni campos.
-- Lado móvil (enlace, FM-13): `../firmador-movil/docs/ESPECIFICACIONES_TECNICAS.md`, §6.
-- Contexto de la monografía: `../../AGENTS.md`, `../../docs/prueba_de_concepto.md`, `../../docs/indicadores.md`. Consúltalos solo si la tarea toca evaluación o redacción.
-
-## Prioridad y orden
-
-Todo el repositorio es P2 (iteración I5, RF07). Orden: ingreso (FC-01) → lista y carga (FC-02, FC-03) → firma y estado (FC-04 a FC-06) → detalle y descargas (FC-07, FC-08). P3 (FC-09, FC-10) solo con P2 cerrado. Si el tiempo no alcanza, lo pendiente se informa como no evaluado (riesgo R5).
-
 ## ▶️ Uso
 
 No hay que instalar ni compilar nada. Con `firmador-servicio` en marcha en el puerto 3000 del mismo equipo:
 
 ```sh
 docker build -t firmador-cliente .
-docker run -d --name firmador-cliente -p 8080:80 --env-file .env firmador-cliente
+docker run -d --name firmador-cliente -p 8080:80 firmador-cliente
 ```
 
-y abrir `http://<IP-del-equipo>:8080` en Chrome del teléfono, conectado a la misma red. La URL de la API se define en `.env` (`API_URL`). Detalle en el [manual de instalación](INSTALL.md).
+y abrir `http://<IP-del-equipo>:8080` en Chrome del teléfono, conectado a la misma red. La URL de la API (`API_URL`) y la de Jacobitus (`JACOBITUS_URL`) se definen en `public/js/config.js`, copiado de `config.js.sample`. Detalle en el [manual de instalación](INSTALL.md).
 
 ## Reglas no negociables
 
@@ -32,10 +21,6 @@ y abrir `http://<IP-del-equipo>:8080` en Chrome del teléfono, conectado a la mi
 - Al volver del teléfono, consultar el estado; nunca asumir el resultado.
 - Titular y fecha de una firma salen de lo que informa el servicio a partir del PDF, nunca de la sesión. Nunca mostrar «Firma válida»: el servicio solo extrae metadatos y no valida la firma ni la cadena de certificados. Mostrar el aviso de laboratorio solo cuando el emisor extraído del certificado lo indique.
 - El ingreso es simulado y se rotula como entorno de demostración.
-
-## Evidencia
-
-Cada ejecución de prueba se registra en `../../evidencias/I5_<nombre>/` con los campos de la §6 de la especificación. Ejecuciones previas a la definición de indicadores son de desarrollo, no resultados. No afirmar en código, commits ni docs facilidad de uso, ahorro de tiempo, validez legal ni compatibilidad institucional.
 
 ## Forma de trabajo
 
