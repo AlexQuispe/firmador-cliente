@@ -19,10 +19,10 @@ No hay que instalar ni compilar nada. Con `firmador-servicio` en marcha en el pu
 
 ```sh
 docker build -t firmador-cliente .
-docker run -d --name firmador-cliente -p 8080:80 --env-file .env firmador-cliente
+docker run -d --name firmador-cliente -p 8080:80 firmador-cliente
 ```
 
-y abrir `http://<IP-del-equipo>:8080` en Chrome del teléfono, conectado a la misma red. La URL de la API se define en `.env` (`API_URL`). Detalle en el [manual de instalación](INSTALL.md).
+y abrir `http://<IP-del-equipo>:8080` en Chrome del teléfono, conectado a la misma red. La URL de la API (`API_URL`) y la de Jacobitus (`JACOBITUS_URL`) se definen en `public/js/config.js`, copiado de `config.js.sample`. Detalle en el [manual de instalación](INSTALL.md).
 
 ## Reglas no negociables
 

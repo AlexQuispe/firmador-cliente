@@ -7,6 +7,14 @@
 - Teléfono Android con Chrome y `firmador-movil`, en la misma red que el equipo.
 - Para firmar en escritorio: Jacobitus Escritorio instalado y abierto en esa misma computadora, con su certificado de servicio local instalado desde **Ayuda → Verificar servicio**.
 
+## 📥 Clonación del proyecto
+
+```sh
+git clone https://github.com/AlexQuispe/firmador-cliente.git
+cd firmador-cliente
+git checkout develop
+```
+
 ## ⚙️ Configuración
 
 ```sh
